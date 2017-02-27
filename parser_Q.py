@@ -43,26 +43,6 @@ for i in range(range_from, range_to + 1):
         
 df.to_csv('dataset_' + str(range_from) + '-' + str(range_to) +'.csv')  #сохранится в директорию
 end = str(datetime.datetime.now()) 
-import re
-import re
-url='<a href="http://www.ptop.se" target="_blank">http://www.ptop.se</a>'
-r = re.compile('(?<=href=").*?(?=")')
-r.findall(str(row))
-
-for row in followed:
-    row = str(row)
-    row_a = row.findAll('a', attrs={'href': re.compile("^/questions/")})
-    urls = row.search(r'href=[\'"]?([^\'" >]+)', s)
-    print(urls)
-row[2]
-
-followed.findAll('a', attrs={'href': re.compile("^/questions/")})
-
-theQ_with_name.select("a[href^=/questions/]") 
-followed.find_all('a', href_=re.compile('/questions/'))
-followed('a') 
-
-
 
 
 
