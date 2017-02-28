@@ -38,10 +38,10 @@ for i in range(range_from, range_to + 1):
         theQ_with_name = requests.get(theQ_with_name) 
         theQ_with_name = BeautifulSoup(theQ_with_name.text, 'html.parser') 
         followed = theQ_with_name.find('div', {'class': 'list-questions__header-center'}) 
-    if followed is None: 
-            followed = "0" 
-    else: 
-            followed = "1" 
+        if followed is None: 
+             followed = "0" 
+         else: 
+                followed = "1" 
     df.loc[len(df)]=[str(i), link_vk, followed] 
     end = str(datetime.datetime.now())
     
