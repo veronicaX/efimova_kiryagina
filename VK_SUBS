@@ -1,0 +1,62 @@
+#Скачивание пабликов из вк
+
+# Загружаем пакеты
+
+library(httr)
+library(stringr) 
+library(devtools)
+
+# Загружаем функции для работы с VK API
+
+source_url("https://gist.githubusercontent.com/paulokopny/63daf8ca42f9d842b122/raw/bf7c8f9f6944b44e7c791cb66f4919bd762f4dc9/vk.R")
+
+# Авторизуемся, пройдя по ссылке
+http://wardoctor.nosoc.io/public/paulokopny/vkauth/karepin.html #получаем код, копируем
+
+vk <- get.vk.connector(code = "вставляем скопированный код", app = "karepin", debug = T)
+#получаем access_token = "..."
+
+#Код для выкачивания пабликов
+pabliki <- data.frame()
+subs <- as.vector(id_vk_677$id_vk)
+for (i in subs){
+  zx=vk(method= "users.getSubscriptions", user_id=i)
+  zx=as.numeric(zx$groups$items)
+  zx = str_c(zx, collapse=" ")
+  if (length(zx)==0){zx = 0} else {}
+  df1=data.frame(id=i, publ=zx)
+  pabliki=rbind(pabliki, df1)
+  print(i)
+  Sys.sleep(0.5)
+}
+
+#на всякий копируем полученную базу, дальше работаем с ней
+subss <- publiki
+
+#spliting
+new_df = data.frame()
+
+for(i in 1:nrow(subss)){
+  members_all <- unlist(strsplit(subss$publ[i],' ',fixed=TRUE))
+  new_df = rbind(new_df, data.frame(group_id = subss$id[i], all_members=members_all))
+}
+
+#снова копируем полученную базу на всякий случай, дальше работаем с ней
+df <- new_df
+#rename, так как в последнем цикле неправильно расставила названия столбцов
+colnames(df)[1] <- "id_user_vk"
+colnames(df)[2] <- "id_subs"
+
+
+#remove 0
+df$id_subs[df$id_subs == 0] <- NA
+df <- na.omit(df)
+
+
+#save
+write.csv(df, file = "id_user_vk$id_group$edge_list.csv")
+
+
+#NEW COLUMN TYPE
+df["type"] <- F
+write.csv(df, file = "id_user_vk$id_group$type$edge_list.csv")
