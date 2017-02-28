@@ -46,7 +46,7 @@ for i in range(range_from, range_to + 1):
     end = str(datetime.datetime.now())
     
     if i % 10000 == 0: #сохраняем через каждую тысячу
-        df.to_csv('dataset_' + str(range_from) + '-' + str(i) +'.csv')
+        df.to_csv('dataset_' + str(range_from) + '-' + str(i) +'.csv', index=False)
         
-df.to_csv('dataset_' + str(range_from) + '-' + str(range_to) +'.csv')  #сохранится в директорию
+df.to_csv('dataset_' + str(range_from) + '-' + str(range_to) +'.csv', index=False)  #сохранится в директорию
 end = str(datetime.datetime.now()) 
