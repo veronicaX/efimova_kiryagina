@@ -40,7 +40,7 @@ for i in range(range_from, range_to + 1):
         followed = theQ_with_name.find('div', {'class': 'list-questions__header-center'}) 
         if followed is None: 
              followed = "0" 
-         else: 
+        else: 
                 followed = "1" 
     df.loc[len(df)]=[str(i), link_vk, followed] 
     end = str(datetime.datetime.now())
